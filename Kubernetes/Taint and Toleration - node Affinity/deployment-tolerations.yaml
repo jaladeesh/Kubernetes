@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: nginxpod
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginxcontainer
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+      tolerations:
+      - key: color
+        value: blue
+        operator: Equal
+        effect: NoSchedule
+
+
+#Create a Deployment with nginx image and add the toleration with key as color value as blue and
+#effect as No Schedule and deploy the pods.

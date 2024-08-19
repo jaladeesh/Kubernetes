@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cert-manager
+  namespace: default
+spec:
+  secretName: route53-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: jala.net.in
+  dnsNames:
+  - jala.net.in

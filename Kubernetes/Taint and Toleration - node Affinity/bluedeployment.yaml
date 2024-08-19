@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue-deployment
+  labels:
+    app: blueapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: blueapp
+  template:
+    metadata:
+      name: bluepod
+      labels:
+        app: blueapp
+    spec:
+      containers:
+      - name: bluecontainer
+        image: nginx
+      tolerations:
+      - key: color
+        value: blue
+        effect: NoSchedule
+        operator: Equal
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: color
+                operator: In
+                values:
+                - blue
+
+#Create a taint to a node with color = blue and another taint for another node with color = green
+#Create a label to a node with color=blue and another label for another node with color = green
+#Create two Deployment with the name blue and green using nginx image
+#Blue Pod should have the toleration set to the taint color = blue and node affinity rules set to label color = blue
+#Green Pod should have the toleration set to the taint color = green and node affinity rules set to label color = green

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapps-pod
+  labels:
+    app: frontend-webapps
+spec:
+  containers:
+    - name: webapps-container
+      image: kodekloud/webapp-color
+      ports:
+      - containerPort: 8080    
+      volumeMounts:
+        - name: webapps-configmap
+          mountPath: /etc/config
+  volumes:
+    - name: webapps-configmap
+      configMap:
+        name: webapps-configmap

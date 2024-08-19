@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydeployment
+  labels:
+    app: myapplication
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapplication
+  template:
+    metadata:
+      name: myapplication-pod
+      labels:
+        app: myapplication
+    spec:
+      containers:
+      - name: myapplication-container
+        image: praravind1801/docker-handson-2:v1
+        ports:
+        - containerPort: 80
